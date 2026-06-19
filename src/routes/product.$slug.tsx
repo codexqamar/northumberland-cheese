@@ -53,7 +53,7 @@ function Product() {
           <div className="rule my-8" />
           <p className="leading-relaxed">{cheese.description}</p>
           <div className="mt-6 flex flex-wrap gap-2">
-            {cheese.notes.map(n => (
+            {cheese.notes.map((n: string) => (
               <span key={n} className="rounded-full border border-border bg-card px-3 py-1 text-xs">{n}</span>
             ))}
           </div>
