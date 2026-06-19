@@ -16,18 +16,13 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+        <p className="eyebrow">404 — lost in the cellar</p>
+        <h1 className="mt-3 text-5xl">Page not found</h1>
+        <p className="mt-3 text-sm text-muted-foreground">
+          That wheel isn't on our shelf. Let's get you back to the dairy.
         </p>
         <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
+          <Link to="/" className="btn btn-primary">Return home</Link>
         </div>
       </div>
     </div>
@@ -44,28 +39,16 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
+        <h1 className="text-2xl">This page didn't load</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+          Something went wrong. Try again or head home.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Try again
-          </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-          >
-            Go home
-          </a>
+            onClick={() => { router.invalidate(); reset(); }}
+            className="btn btn-primary"
+          >Try again</button>
+          <a href="/" className="btn btn-ghost">Go home</a>
         </div>
       </div>
     </div>
@@ -77,20 +60,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Northumberland Cheese Co. — Artisan since 1984" },
+      { name: "description", content: "Handcrafted cow, goat and sheep cheeses from the Northumberland dairy. Retail, subscriptions and trade." },
+      { property: "og:title", content: "Northumberland Cheese Co." },
+      { property: "og:description", content: "Handcrafted cow, goat and sheep cheeses since 1984." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" },
     ],
   }),
   shellComponent: RootShell,
@@ -102,24 +83,95 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
+      <head><HeadContent /></head>
+      <body>{children}<Scripts /></body>
     </html>
+  );
+}
+
+function SiteHeader() {
+  const nav = [
+    { to: "/shop", label: "Shop" },
+    { to: "/subscriptions", label: "Cheese Box Club" },
+    { to: "/trade", label: "Trade" },
+    { to: "/about", label: "Our Dairy" },
+  ] as const;
+  return (
+    <header className="relative z-10 border-b border-border/60 bg-background/80 backdrop-blur">
+      <div className="container-page flex h-20 items-center justify-between">
+        <Link to="/" className="flex items-baseline gap-2">
+          <span className="font-display text-2xl tracking-tight text-primary">Northumberland</span>
+          <span className="eyebrow hidden sm:inline">Cheese Co. · est. 1984</span>
+        </Link>
+        <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+          {nav.map(n => (
+            <Link
+              key={n.to}
+              to={n.to}
+              className="text-foreground/80 hover:text-primary transition-colors"
+              activeProps={{ className: "text-primary" }}
+            >{n.label}</Link>
+          ))}
+        </nav>
+        <div className="flex items-center gap-2">
+          <Link to="/admin" className="hidden sm:inline btn btn-ghost text-xs">Ops</Link>
+          <Link to="/shop" className="btn btn-accent text-xs">Shop now</Link>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="relative z-10 mt-24 border-t border-border/60 bg-secondary/60">
+      <div className="container-page grid gap-10 py-14 md:grid-cols-4">
+        <div>
+          <div className="font-display text-xl text-primary">Northumberland Cheese Co.</div>
+          <p className="mt-3 text-sm text-muted-foreground max-w-xs">
+            Handcrafting cow, goat and sheep cheeses from our dairy on the
+            edge of the Cheviots since 1984.
+          </p>
+        </div>
+        <div>
+          <p className="eyebrow mb-3">Shop</p>
+          <ul className="space-y-2 text-sm">
+            <li><Link to="/shop">All cheeses</Link></li>
+            <li><Link to="/subscriptions">Cheese Box Club</Link></li>
+            <li><Link to="/trade">Trade accounts</Link></li>
+          </ul>
+        </div>
+        <div>
+          <p className="eyebrow mb-3">Dairy</p>
+          <ul className="space-y-2 text-sm">
+            <li><Link to="/about">Our story</Link></li>
+            <li><a href="#">Visit the creamery</a></li>
+            <li><a href="#">Wholesale enquiries</a></li>
+          </ul>
+        </div>
+        <div>
+          <p className="eyebrow mb-3">Contact</p>
+          <p className="text-sm text-muted-foreground">Blagdon, Northumberland<br/>NE13 6BZ<br/>+44 (0)1670 789798</p>
+        </div>
+      </div>
+      <div className="border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
+        © {new Date().getFullYear()} Northumberland Cheese Company. Sage 50 sync via Zync.
+      </div>
+    </footer>
   );
 }
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="relative min-h-screen flex flex-col">
+        <SiteHeader />
+        <main className="relative z-10 flex-1">
+          <Outlet />
+        </main>
+        <SiteFooter />
+      </div>
     </QueryClientProvider>
   );
 }
