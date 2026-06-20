@@ -2,9 +2,9 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-COPY package*.json bun.lock* ./
+COPY package*.json ./
 
-RUN npm ci
+RUN npm ci --omit=optional
 
 COPY . .
 
@@ -20,5 +20,8 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/server.mjs ./server.mjs
 
 EXPOSE 3000
+
+ENV HOST=0.0.0.0
+ENV PORT=3000
 
 CMD ["node", "server.mjs"]
