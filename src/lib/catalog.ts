@@ -15,6 +15,7 @@ export interface Cheese {
   description: string;
   notes: string[];
   agedMonths: number;
+  image: string;
 }
 
 export const CHEESES: Cheese[] = [
@@ -33,6 +34,7 @@ export const CHEESES: Cheese[] = [
       "A buttery, semi-hard cow's milk cheese with a gentle tang and supple paste. The cheese that built the dairy.",
     notes: ["Butter", "Hay", "Soft tang"],
     agedMonths: 3,
+    image: "/Cheviot Hills_Cheese Board.jpg",
   },
   {
     slug: "coquetdale",
@@ -49,6 +51,7 @@ export const CHEESES: Cheese[] = [
       "A characterful washed-rind cheese with a rosy bloom, mellow funk and a long, savoury finish.",
     notes: ["Brassica", "Cured ham", "Wet stone"],
     agedMonths: 5,
+    image: "/Coquet Valley_Cheese Board Gravite.jpg",
   },
   {
     slug: "elsdon",
@@ -65,6 +68,7 @@ export const CHEESES: Cheese[] = [
       "A soft, lactic goat cheese rolled in vine ash. Bright, citric, and clean as a frost morning.",
     notes: ["Lemon zest", "Fresh cream", "Ash"],
     agedMonths: 1,
+    image: "/elsdon.jpg",
   },
   {
     slug: "rothbury-ewe",
@@ -81,6 +85,7 @@ export const CHEESES: Cheese[] = [
       "A firm sheep's milk cheese with a nutty heart and crystalline sparkle from long ageing.",
     notes: ["Roasted hazelnut", "Lanolin", "Caramel"],
     agedMonths: 6,
+    image: "https://images.unsplash.com/photo-1608686207856-001b95cf60ca?w=800&auto=format&fit=crop&q=80",
   },
   {
     slug: "berwick-edge",
@@ -97,6 +102,7 @@ export const CHEESES: Cheese[] = [
       "An amber, gouda-style cow's milk cheese with a fudge sweetness and protein crunch.",
     notes: ["Toffee", "Pineapple", "Crystal crunch"],
     agedMonths: 9,
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=800&auto=format&fit=crop&q=80",
   },
   {
     slug: "redesdale",
@@ -113,6 +119,7 @@ export const CHEESES: Cheese[] = [
       "A pale, supple sheep's milk cheese with a soft lactic curd and a clean, restrained finish.",
     notes: ["Yoghurt", "Almond", "Cool grass"],
     agedMonths: 2,
+    image: "https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=800&auto=format&fit=crop&q=80",
   },
 ];
 

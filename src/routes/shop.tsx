@@ -49,11 +49,11 @@ function Shop() {
             className="card-paper group flex flex-col overflow-hidden p-6 transition-colors hover:border-primary"
           >
             <div className="aspect-[5/4] overflow-hidden rounded-md bg-muted">
-              <svg viewBox="0 0 200 160" className="h-full w-full">
-                <rect width="200" height="160" fill={c.milk === "goat" ? "oklch(0.95 0.02 90)" : c.milk === "sheep" ? "oklch(0.9 0.04 85)" : "oklch(0.86 0.08 75)"}/>
-                <ellipse cx="100" cy="95" rx="70" ry="50" fill="oklch(0.78 0.1 70)"/>
-                <ellipse cx="100" cy="95" rx="70" ry="10" fill="oklch(0.55 0.1 50)" opacity="0.4"/>
-              </svg>
+              <img
+                src={c.image}
+                alt={c.name}
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
             </div>
             <div className="mt-5 flex items-baseline justify-between">
               <h2 className="text-2xl">{c.name}</h2>

@@ -43,21 +43,16 @@ function Home() {
             </dl>
           </div>
           <div className="lg:col-span-5">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-border bg-secondary">
-              <svg viewBox="0 0 400 500" className="h-full w-full" aria-hidden>
-                <defs>
-                  <radialGradient id="g" cx="50%" cy="40%" r="65%">
-                    <stop offset="0%" stopColor="oklch(0.96 0.04 88)"/>
-                    <stop offset="60%" stopColor="oklch(0.86 0.07 70)"/>
-                    <stop offset="100%" stopColor="oklch(0.55 0.1 50)"/>
-                  </radialGradient>
-                </defs>
-                <rect width="400" height="500" fill="oklch(0.92 0.025 88)"/>
-                <ellipse cx="200" cy="260" rx="160" ry="150" fill="url(#g)"/>
-                <ellipse cx="200" cy="260" rx="160" ry="30" fill="oklch(0.45 0.08 50)" opacity="0.35"/>
-                <path d="M40 410 Q200 350 360 410 L360 500 L40 500 Z" fill="oklch(0.305 0.046 155)"/>
-                <text x="200" y="478" textAnchor="middle" fontFamily="Fraunces, serif" fontSize="22" fill="oklch(0.962 0.022 88)">CHEVIOT · 2.5 KG</text>
-              </svg>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-border bg-secondary group">
+              <img
+                src="/Cheviot Hills_Cheese Board.jpg"
+                alt="Northumberland Cheese Wheel"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
+                <p className="font-display text-2xl">Cheviot</p>
+                <p className="text-sm opacity-90">Our signature cow's milk wheel · 2.5 KG</p>
+              </div>
             </div>
           </div>
         </div>
@@ -82,11 +77,11 @@ function Home() {
                 className="card-paper group overflow-hidden p-6 transition-colors hover:border-primary"
               >
                 <div className="aspect-[5/4] overflow-hidden rounded-md bg-muted">
-                  <svg viewBox="0 0 200 160" className="h-full w-full">
-                    <rect width="200" height="160" fill={c.milk === "goat" ? "oklch(0.95 0.02 90)" : c.milk === "sheep" ? "oklch(0.9 0.04 85)" : "oklch(0.86 0.08 75)"}/>
-                    <ellipse cx="100" cy="95" rx="70" ry="50" fill="oklch(0.78 0.1 70)"/>
-                    <ellipse cx="100" cy="95" rx="70" ry="10" fill="oklch(0.55 0.1 50)" opacity="0.4"/>
-                  </svg>
+                  <img
+                    src={c.image}
+                    alt={c.name}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
                 </div>
                 <div className="mt-5 flex items-baseline justify-between">
                   <h3 className="text-2xl">{c.name}</h3>

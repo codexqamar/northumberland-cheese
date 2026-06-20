@@ -76,6 +76,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -103,9 +104,12 @@ function SiteHeader() {
   return (
     <header className="relative z-10 border-b border-border/60 bg-background/80 backdrop-blur">
       <div className="container-page flex h-20 items-center justify-between">
-        <Link to="/" className="flex items-baseline gap-2">
-          <span className="font-display text-2xl tracking-tight text-primary">Northumberland</span>
-          <span className="eyebrow hidden sm:inline">Cheese Co. · est. 1984</span>
+        <Link to="/" className="flex items-center gap-3">
+          <img src="/logo.png" alt="Northumberland Cheese Co." className="h-10 w-auto object-contain" />
+          <div className="flex flex-col justify-center">
+            <span className="font-display text-xl leading-none tracking-tight text-primary">Northumberland</span>
+            <span className="text-[10px] uppercase tracking-wider text-muted-foreground mt-0.5">Cheese Co. · est. 1984</span>
+          </div>
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
           {nav.map(n => (
@@ -131,7 +135,10 @@ function SiteFooter() {
     <footer className="relative z-10 mt-24 border-t border-border/60 bg-secondary/60">
       <div className="container-page grid gap-10 py-14 md:grid-cols-4">
         <div>
-          <div className="font-display text-xl text-primary">Northumberland Cheese Co.</div>
+          <div className="flex items-center gap-3">
+            <img src="/logo.png" alt="Northumberland Cheese Co." className="h-8 w-auto object-contain brightness-95" />
+            <span className="font-display text-lg text-primary">Northumberland Cheese Co.</span>
+          </div>
           <p className="mt-3 text-sm text-muted-foreground max-w-xs">
             Handcrafting cow, goat and sheep cheeses from our dairy on the
             edge of the Cheviots since 1984.

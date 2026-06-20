@@ -39,12 +39,11 @@ function Product() {
       <Link to="/shop" className="text-sm text-muted-foreground hover:text-primary">← All cheeses</Link>
       <div className="mt-8 grid gap-12 lg:grid-cols-2">
         <div className="aspect-square overflow-hidden rounded-lg border border-border bg-secondary">
-          <svg viewBox="0 0 400 400" className="h-full w-full">
-            <rect width="400" height="400" fill="oklch(0.92 0.025 88)"/>
-            <ellipse cx="200" cy="210" rx="150" ry="130" fill="oklch(0.82 0.08 70)"/>
-            <ellipse cx="200" cy="210" rx="150" ry="25" fill="oklch(0.5 0.1 50)" opacity="0.35"/>
-            <path d="M120 230 Q200 180 280 230" stroke="oklch(0.5 0.1 50)" strokeWidth="2" fill="none" opacity="0.5"/>
-          </svg>
+          <img
+            src={cheese.image}
+            alt={cheese.name}
+            className="h-full w-full object-cover"
+          />
         </div>
         <div>
           <p className="eyebrow capitalize">{cheese.milk}'s milk · aged {cheese.agedMonths} months</p>
