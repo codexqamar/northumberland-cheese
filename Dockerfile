@@ -6,7 +6,7 @@ COPY package*.json ./
 
 RUN npm config set ignore-scripts true && \
     npm config set fund false && \
-    npm install --no-audit --no-fund --omit=dev --ignore-engines
+    npm install --no-audit --no-fund --ignore-engines
 
 COPY . .
 
@@ -16,10 +16,13 @@ FROM node:22-alpine AS runner
 
 WORKDIR /app
 
-COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/server.mjs ./server.mjs
+
+RUN npm config set ignore-scripts true && \
+    npm config set fund false && \
+    npm install --no-audit --no-fund --omit=dev --omit=optional --ignore-engines
 
 EXPOSE 3000
 
