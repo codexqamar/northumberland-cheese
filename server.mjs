@@ -1,21 +1,37 @@
 import { createServer } from 'node:http';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { dirname, join } from 'node:path';
+import { dirname, extname, resolve, sep } from 'node:path';
 import { readFileSync, existsSync } from 'node:fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const serverEntryPath = pathToFileURL(join(__dirname, 'dist/server/server.js')).href;
+const serverEntryPath = pathToFileURL(resolve(__dirname, 'dist/server/server.js')).href;
 const serverEntry = await import(serverEntryPath);
-const clientDir = join(__dirname, 'dist/client');
+const clientDir = resolve(__dirname, 'dist/client');
+
+const resolveStaticPath = (pathname) => {
+  let decodedPath;
+
+  try {
+    decodedPath = decodeURIComponent(pathname);
+  } catch {
+    return null;
+  }
+
+  const staticPath = resolve(clientDir, `.${decodedPath}`);
+  const isInsideClientDir =
+    staticPath === clientDir || staticPath.startsWith(`${clientDir}${sep}`);
+
+  return isInsideClientDir ? staticPath : null;
+};
 
 const server = createServer(async (req, res) => {
   const url = new URL(req.url || '/', `http://${req.headers.host}`);
   
-  const staticPath = join(clientDir, url.pathname);
-  if (existsSync(staticPath) && !staticPath.endsWith('/')) {
-    const ext = staticPath.split('.').pop();
+  const staticPath = resolveStaticPath(url.pathname);
+  if (staticPath && existsSync(staticPath) && !staticPath.endsWith('/')) {
+    const ext = extname(staticPath).slice(1);
     const contentTypes = {
       html: 'text/html',
       css: 'text/css',
