@@ -4,7 +4,9 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm ci --omit=optional
+RUN npm config set ignore-scripts true && \
+    npm config set fund false && \
+    npm install --no-audit --no-fund --omit=dev --ignore-engines
 
 COPY . .
 
