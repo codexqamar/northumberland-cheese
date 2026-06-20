@@ -1,7 +1,7 @@
 import { createServer } from 'node:http';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, extname, resolve, sep } from 'node:path';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, statSync } from 'node:fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -26,11 +26,19 @@ const resolveStaticPath = (pathname) => {
   return isInsideClientDir ? staticPath : null;
 };
 
+const isStaticFile = (path) => {
+  try {
+    return statSync(path).isFile();
+  } catch {
+    return false;
+  }
+};
+
 const server = createServer(async (req, res) => {
   const url = new URL(req.url || '/', `http://${req.headers.host}`);
   
   const staticPath = resolveStaticPath(url.pathname);
-  if (staticPath && existsSync(staticPath) && !staticPath.endsWith('/')) {
+  if (staticPath && isStaticFile(staticPath)) {
     const ext = extname(staticPath).slice(1);
     const contentTypes = {
       html: 'text/html',
